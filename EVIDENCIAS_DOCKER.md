@@ -36,32 +36,32 @@ docker build -t churn-api-olguin .
 ### 6. Ejecución de contenedor
 ✅ **Contenedor ejecutado con nombre personalizado**
 ```bash
-docker run -d --name churn-api-olguin -p 8000:8080 churn-api-olguin
+docker run -d --name churn-api-olguin -p 8080:8080 churn-api-olguin
 ```
 - **Contenedor ID:** 1731a16352e7
 - **Estado:** Up (health: starting)
-- **Puerto:** 0.0.0.0:8000->8080/tcp
+- **Puerto:** 0.0.0.0:8080->8080/tcp
 
 ### 7. Verificación de Endpoints
 
 #### Endpoint /
-✅ **GET http://localhost:8000/**
+✅ **GET http://localhost:8080/**
 ```json
 {"mensaje":"Servicio ML-Ops activo","estado":"ok","autor":"Roberto Carlos Olguin Ledezma"}
 ```
 
 #### Endpoint /health
-✅ **GET http://localhost:8000/health**
+✅ **GET http://localhost:8080/health**
 ```json
 {"estado":"ok","modelo":"modelo_churn_v1"}
 ```
 
 #### Endpoint /docs
-✅ **GET http://localhost:8000/docs**
+✅ **GET http://localhost:8080/docs**
 - Swagger UI accesible correctamente
 
 #### Endpoint /info (Variación Técnica)
-✅ **GET http://localhost:8000/info**
+✅ **GET http://localhost:8080/info**
 ```json
 {
   "version_modelo":"modelo_churn_v1",
@@ -80,13 +80,13 @@ docker run -d --name churn-api-olguin -p 8000:8080 churn-api-olguin
 ### 8. Pruebas de Predicción
 
 #### Predicción Válida
-✅ **POST http://localhost:8000/predict**
+✅ **POST http://localhost:8080/predict**
 ```json
 {"prediccion":"alto_riesgo","probabilidad":0.87,"version_modelo":"modelo_churn_v1","autor":"Roberto Carlos Olguin Ledezma"}
 ```
 
 #### Solicitud Inválida
-✅ **POST http://localhost:8000/predict** (con antiguedad = -1)
+✅ **POST http://localhost:8080/predict** (con antiguedad = -1)
 ```json
 {"detail":[{"type":"greater_than_equal","loc":["body","antiguedad"],"msg":"Input should be greater than or equal to 0","input":-1,"ctx":{"ge":0}}]}
 ```
@@ -149,7 +149,7 @@ INFO:     192.168.65.1:17195 - "GET /info HTTP/1.1" 200 OK
 docker build -t churn-api-olguin .
 
 # Ejecución
-docker run -d --name churn-api-olguin -p 8000:8080 churn-api-olguin
+docker run -d --name churn-api-olguin -p 8080:8080 churn-api-olguin
 
 # Verificación
 docker ps
@@ -350,21 +350,21 @@ docker port churn-api-olguin
 
 ### 8. Endpoint /
 ```bash
-curl http://localhost:8000/
+curl http://localhost:8080/
 # Output:
 # {"mensaje":"Servicio ML-Ops activo","estado":"ok","autor":"Roberto Carlos Olguin Ledezma"}
 ```
 
 ### 9. Endpoint /health
 ```bash
-curl http://localhost:8000/health
+curl http://localhost:8080/health
 # Output:
 # {"estado":"ok","modelo":"modelo_churn_v1"}
 ```
 
 ### 10. Swagger (docs)
 ```bash
-curl -s http://localhost:8000/docs | head -10
+curl -s http://localhost:8080/docs | head -10
 # Output:
 # <!DOCTYPE html>
 # <html>
@@ -377,14 +377,14 @@ curl -s http://localhost:8000/docs | head -10
 
 ### 11. Predicción válida
 ```bash
-curl -X POST http://localhost:8000/predict -H "Content-Type: application/json" -d '{"antiguedad": 12, "cargo_mensual": 95.5, "reclamos": 3}'
+curl -X POST http://localhost:8080/predict -H "Content-Type: application/json" -d '{"antiguedad": 12, "cargo_mensual": 95.5, "reclamos": 3}'
 # Output:
 # {"prediccion":"alto_riesgo","probabilidad":0.87,"version_modelo":"modelo_churn_v1","autor":"Roberto Carlos Olguin Ledezma"}
 ```
 
 ### 12. Solicitud inválida
 ```bash
-curl -X POST http://localhost:8000/predict -H "Content-Type: application/json" -d '{"antiguedad": -1, "cargo_mensual": 95.5, "reclamos": 3}'
+curl -X POST http://localhost:8080/predict -H "Content-Type: application/json" -d '{"antiguedad": -1, "cargo_mensual": 95.5, "reclamos": 3}'
 # Output:
 # {"detail":[{"type":"greater_than_equal","loc":["body","antiguedad"],"msg":"Input should be greater than or equal to 0","input":-1,"ctx":{"ge":0}}]}
 ```
@@ -477,12 +477,12 @@ docker logs churn-api-olguin
 
 | Aspecto que debe analizar | ¿Qué debe registrar? | Ejecución local | Ejecución en Docker |
 |---------------------------|---------------------|-----------------|-------------------|
-| **Forma de iniciar la API** | Indique cómo puso en funcionamiento el servicio en cada caso. | `python -m uvicorn api.main:app --host 0.0.0.0 --port 8000` | `docker build -t churn-api-olguin .`<br>`docker run -d --name churn-api-olguin -p 8000:8080 churn-api-olguin` |
+| **Forma de iniciar la API** | Indique cómo puso en funcionamiento el servicio en cada caso. | `python -m uvicorn api.main:app --host 0.0.0.0 --port 8000` | `docker build -t churn-api-olguin .`<br>`docker run -d --name churn-api-olguin -p 8080:8080 churn-api-olguin` |
 | **Dependencias necesarias** | Explique dónde se instalaron las librerías requeridas por la API. | Instaladas en entorno virtual `.venv` usando `pip install -r requirements.txt` | Instaladas dentro de la imagen Docker durante el build con `RUN pip install --no-cache-dir -r requirements.txt` |
 | **Archivos utilizados** | Mencione los archivos principales necesarios para ejecutar el servicio. | `api/main.py`, `requirements.txt`, `models/modelo_churn_v1.joblib` | `api/main.py`, `requirements.txt`, `models/modelo_churn_v1.joblib`, `Dockerfile`, `.dockerignore` |
 | **Configuración del entorno** | Explique dónde se definió el entorno de ejecución. | Python 3.12 local con entorno virtual `.venv` | Imagen base `python:3.12-slim` definida en Dockerfile |
-| **Uso del puerto** | Registre cómo accedió a la API desde el navegador o Swagger. | Puerto 8000 directo de Uvicorn | Puerto local 8000 mapeado al puerto interno 8080 del contenedor (`-p 8000:8080`) |
-| **Acceso a Swagger** | Registre la dirección utilizada para probar /docs. | `http://localhost:8000/docs` | `http://localhost:8000/docs` |
+| **Uso del puerto** | Registre cómo accedió a la API desde el navegador o Swagger. | Puerto 8000 directo de Uvicorn | Puerto local 8080 mapeado al puerto interno 8080 del contenedor (`-p 8080:8080`) |
+| **Acceso a Swagger** | Registre la dirección utilizada para probar /docs. | `http://localhost:8080/docs` | `http://localhost:8080/docs` |
 | **Carga del modelo** | Explique cómo comprobó que el modelo estaba disponible. | Verifiqué archivo `models/modelo_churn_v1.joblib` y endpoint `/health` | Verifiqué que el modelo se incluyó en la imagen Docker y `/health` dentro del contenedor |
 | **Prueba de predicción** | Registre una prueba válida realizada en /predict. | Entrada: `{"antiguedad": 12, "cargo_mensual": 95.5, "reclamos": 3}`<br>Salida: `{"prediccion":"alto_riesgo","probabilidad":0.87,...}` | Entrada: `{"antiguedad": 12, "cargo_mensual": 95.5, "reclamos": 3}`<br>Salida: `{"prediccion":"alto_riesgo","probabilidad":0.87,...}` |
 | **Validación de errores** | Registre una solicitud inválida y la respuesta observada. | Entrada: `{"antiguedad": -1, "cargo_mensual": 95.5, "reclamos": 3}`<br>Salida: Error validación Pydantic | Entrada: `{"antiguedad": -1, "cargo_mensual": 95.5, "reclamos": 3}`<br>Salida: Mismo error de validación Pydantic |
