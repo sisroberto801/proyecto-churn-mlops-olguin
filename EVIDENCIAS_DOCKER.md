@@ -477,12 +477,12 @@ docker logs churn-api-olguin
 
 | Aspecto que debe analizar | ¿Qué debe registrar? | Ejecución local | Ejecución en Docker |
 |---------------------------|---------------------|-----------------|-------------------|
-| **Forma de iniciar la API** | Indique cómo puso en funcionamiento el servicio en cada caso. | `python -m uvicorn api.main:app --host 0.0.0.0 --port 8000` | `docker build -t churn-api-olguin .`<br>`docker run -d --name churn-container-olguin -p 8080:8080 churn-api-olguin` |
+| **Forma de iniciar la API** | Indique cómo puso en funcionamiento el servicio en cada caso. | `python -m uvicorn api.main:app --host 0.0.0.0 --port 8000` | `docker build -t churn-api-olguin .`<br>`docker run -d --name churn-api-olguin -p 8000:8080 churn-api-olguin` |
 | **Dependencias necesarias** | Explique dónde se instalaron las librerías requeridas por la API. | Instaladas en entorno virtual `.venv` usando `pip install -r requirements.txt` | Instaladas dentro de la imagen Docker durante el build con `RUN pip install --no-cache-dir -r requirements.txt` |
 | **Archivos utilizados** | Mencione los archivos principales necesarios para ejecutar el servicio. | `api/main.py`, `requirements.txt`, `models/modelo_churn_v1.joblib` | `api/main.py`, `requirements.txt`, `models/modelo_churn_v1.joblib`, `Dockerfile`, `.dockerignore` |
 | **Configuración del entorno** | Explique dónde se definió el entorno de ejecución. | Python 3.12 local con entorno virtual `.venv` | Imagen base `python:3.12-slim` definida en Dockerfile |
-| **Uso del puerto** | Registre cómo accedió a la API desde el navegador o Swagger. | Puerto 8000 directo de Uvicorn | Puerto local 8080 mapeado al puerto interno 8080 del contenedor (`-p 8080:8080`) |
-| **Acceso a Swagger** | Registre la dirección utilizada para probar /docs. | `http://localhost:8000/docs` | `http://localhost:8080/docs` |
+| **Uso del puerto** | Registre cómo accedió a la API desde el navegador o Swagger. | Puerto 8000 directo de Uvicorn | Puerto local 8000 mapeado al puerto interno 8080 del contenedor (`-p 8000:8080`) |
+| **Acceso a Swagger** | Registre la dirección utilizada para probar /docs. | `http://localhost:8000/docs` | `http://localhost:8000/docs` |
 | **Carga del modelo** | Explique cómo comprobó que el modelo estaba disponible. | Verifiqué archivo `models/modelo_churn_v1.joblib` y endpoint `/health` | Verifiqué que el modelo se incluyó en la imagen Docker y `/health` dentro del contenedor |
 | **Prueba de predicción** | Registre una prueba válida realizada en /predict. | Entrada: `{"antiguedad": 12, "cargo_mensual": 95.5, "reclamos": 3}`<br>Salida: `{"prediccion":"alto_riesgo","probabilidad":0.87,...}` | Entrada: `{"antiguedad": 12, "cargo_mensual": 95.5, "reclamos": 3}`<br>Salida: `{"prediccion":"alto_riesgo","probabilidad":0.87,...}` |
 | **Validación de errores** | Registre una solicitud inválida y la respuesta observada. | Entrada: `{"antiguedad": -1, "cargo_mensual": 95.5, "reclamos": 3}`<br>Salida: Error validación Pydantic | Entrada: `{"antiguedad": -1, "cargo_mensual": 95.5, "reclamos": 3}`<br>Salida: Mismo error de validación Pydantic |
