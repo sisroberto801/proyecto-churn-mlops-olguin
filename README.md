@@ -185,10 +185,10 @@ httpx
 
 ### ✅ Entregables Finales
 
-| Entregable | Formato | Estado | Archivo |
-|------------|---------|--------|---------|
-| **[x] Informe técnico final** | PDF (5-7 páginas) | ✅ | `Olguin_Roberto_Proyecto_Final_MLOps.md` |
-| **[x] Diapositiva resumen** | PDF (1 página) | ✅ | `Olguin_Roberto_Resumen_MLOps.md` |
+| Entregable | Estado | Archivo |
+|------------|-|---------|
+| **[x] Informe técnico final** | ✅ | `Olguin_Roberto_Proyecto_Final_MLOps.md` |
+| **[x] Diapositiva resumen** | ✅ | `Olguin_Roberto_Resumen_MLOps.md` |
 
 ---
 
