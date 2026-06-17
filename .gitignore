@@ -24,3 +24,6 @@ models/*.pkl
 # Archivos del sistema operativo
 .DS_Store
 Thumbs.db
+
+# Logs
+logs/*.log
