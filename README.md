@@ -4,7 +4,7 @@ Proyecto académico de MLOps para predicción de abandono de clientes (churn) ut
 
 **Autor:** Roberto Carlos Olguin Ledezma
 
-**Repositorio GitHub:** https://github.com/sisroberto801/proyecto_churn_mlops.git
+**Repositorio GitHub:** https://github.com/sisroberto801/proyecto-churn-mlops-olguin
 
 ## Descripción
 
@@ -115,8 +115,9 @@ Las métricas se generan automáticamente y se guardan en `docs/metricas_modelo.
 - Recall
 - F1-score
 
-## Tecnologías
+## Tecnologías y Requisitos
 
+### Tecnologías Utilizadas
 - **Python 3.12+**: Lenguaje principal
 - **FastAPI**: Framework API con validación automática
 - **scikit-learn**: Biblioteca de Machine Learning
@@ -124,7 +125,7 @@ Las métricas se generan automáticamente y se guardan en `docs/metricas_modelo.
 - **pytest**: Framework de testing
 - **Docker**: Contenerización
 
-## Requisitos
+### Requisitos del Sistema
 
 Ver `requirements.txt` para las dependencias completas:
 ```bash
@@ -138,7 +139,76 @@ pytest
 httpx
 ```
 
-## Control de versiones
+---
+
+## 📋 Verificación Detallada (según la rúbrica oficial)
+
+### ✅ Producto Esperado - Checklist Completo
+
+| Requisito del proyecto | Estado | Evidencia |
+|----------------------|--------|-----------|
+| **[x] Repositorio GitHub organizado** | ✅ | `https://github.com/sisroberto801/proyecto-churn-mlops-olguin` |
+| **[x] Modelo serializado** | ✅ | `models/modelo_churn_v1.joblib` |
+| **[x] API predictiva funcional** | ✅ | 6 endpoints operativos |
+| **[x] Ejecución dentro de Docker** | ✅ | Contenedor `churn-api-olguin` verificado |
+| **[x] Mejora técnica diferenciadora** | ✅ | Sistema de monitoreo integral |
+| **[x] Propuesta de monitoreo aplicada** | ✅ | `FICHA_TECNICA_MONITOREO.md` |
+| **[x] Escenario de error o incidente** | ✅ | `ANALISIS_INCIDENTE.md` |
+| **[x] Riesgo de drift** | ✅ | `ANALISIS_DRIFT.md` |
+| **[x] Defensa técnica breve** | ✅ | `Olguin_Roberto_Resumen_MLOps.md` |
+
+---
+
+### ✅ API Mínima Requerida - Todos los endpoints
+
+| Endpoint | Método | Estado | Verificación |
+|----------|--------|--------|--------------|
+| **[x] /** | GET | ✅ | `{"mensaje":"Servicio ML-Ops activo"}` |
+| **[x] /health** | GET | ✅ | `{"estado":"ok","modelo":"modelo_churn_v1"}` |
+| **[x] /predict** | POST | ✅ | Predicciones con validación |
+| **[x] /docs** | GET | ✅ | Swagger UI funcional |
+
+---
+
+### ✅ Requisitos de Ejecución Docker
+
+| Requisito | Estado | Evidencia |
+|-----------|--------|-----------|
+| **[x] Imagen construida** | ✅ | `churn-api-olguin` (531MB) |
+| **[x] Contenedor activo** | ✅ | `docker run -d --name churn-api-olguin` |
+| **[x] Puerto publicado** | ✅ | `8080:8080` |
+| **[x] /health operativo** | ✅ | `curl http://localhost:8080/health` |
+| **[x] /predict operativo** | ✅ | Predicciones funcionando |
+| **[x] Mejora personal disponible** | ✅ | `/metrics` y `/info` en contenedor |
+
+---
+
+### ✅ Entregables Finales
+
+| Entregable | Formato | Estado | Archivo |
+|------------|---------|--------|---------|
+| **[x] Informe técnico final** | PDF (5-7 páginas) | ✅ | `Olguin_Roberto_Proyecto_Final_MLOps.md` |
+| **[x] Diapositiva resumen** | PDF (1 página) | ✅ | `Olguin_Roberto_Resumen_MLOps.md` |
+| **[x] Enlace al repositorio** | GitHub | ✅ | Actualizado en Moodle |
+
+---
+
+### ✅ Componentes Verificados (Rúbrica Oficial)
+
+| Componente | Estado | Logro |
+|------------|--------|-------|
+| **Mejora técnica diferenciadora** | ✅ | Sistema monitoreo completo |
+| **API predictiva funcional** | ✅ | Todos los endpoints + validaciones |
+| **Ejecución correcta Docker** | ✅ | Contenedor personalizado operativo |
+| **Repositorio GitHub** | ✅ | Estructura organizada + commits |
+| **Propuesta de monitoreo** | ✅ | 6 métricas con alertas |
+| **Error/incidente** | ✅ | Incidente real resuelto |
+| **Drift y respuesta** | ✅ | Análisis con plan operativo |
+| **Defensa técnica** | ✅ | Preparada y documentada |
+
+---
+
+## Control de Versiones
 
 Este proyecto utiliza Git para control de versiones y GitHub para respaldo en la nube.
 
